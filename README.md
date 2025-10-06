@@ -227,8 +227,75 @@ A solution is considered successful when technical debt is tracked accurately, v
 ## Technical Debt Detection Tools
 
 * **PHPStan**: Static analysis for PHP.
+   ```php
+    protected function checkPhpstanIssues()
+    {
+        $process = new Process(['vendor/bin/phpstan', 'analyse', 'app', '--error-format=json']);
+        $process->run();
+
+        if (!$process->isSuccessful()) {
+            return;
+        }
+
+        $output = $process->getOutput();
+        $json = json_decode($output, true);
+
+        if (!empty($json['files'])) {
+            foreach ($json['files'] as $file => $issues) {
+                foreach ($issues as $issue) {
+                    $this->debts[] = [
+                        'file' => str_replace(base_path() . '/', '', $file),
+                        'type' => 'PhpStanIssue',
+                        'priority' => 'High',
+                    ];
+                }
+            }
+        }
+    }
+   ```
+
 * **PHPCPD**: Detects duplicate code blocks.
+   ```php
+    protected function checkDuplicateCode()
+    {
+        $process = new Process(['vendor/bin/phpcpd', 'app', '--log-json', 'php://stdout']);
+        $process->run();
+
+        if (!$process->isSuccessful()) {
+            return;
+        }
+
+        $output = $process->getOutput();
+        $json = json_decode($output, true);
+
+        if (!empty($json['files'])) {
+            foreach ($json['files'] as $file => $lines) {
+                $this->debts[] = [
+                    'file' => str_replace(base_path() . '/', '', $file),
+                    'type' => 'DuplicateCode',
+                    'priority' => 'Medium',
+                ];
+            }
+        }
+    }
+   ```
 * **Custom Rules**: Implemented in `TechnicalDebtService.php` for test coverage and other project-specific checks.
+```php
+    protected function checkMissingTests()
+    {
+        $files = glob(base_path('app/**/*.php'));
+
+        foreach ($files as $file) {
+            if (!str_contains($file, 'Test')) {
+                $this->debts[] = [
+                    'file' => str_replace(base_path() . '/', '', $file),
+                    'type' => 'MissingTest',
+                    'priority' => 'High',
+                ];
+            }
+        }
+    }
+```
 
 ---
 
