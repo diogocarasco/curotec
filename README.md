@@ -17,6 +17,7 @@
 
 * **TechnicalDebtService**:
   A service class that scans the codebase for technical debt, including missing tests, code duplication, and other quality issues.
+  Note: To maintain application performance, this scan can be improved to run asynchronously via a Laravel Artisan Command (php artisan debt:scan) and persists the results to a database table, allowing the API to serve the latest calculated metrics quickly.
 * **Metrics**:
 
   * Total number of debt items.
@@ -118,8 +119,8 @@ This allows you to explore endpoints, view request/response examples, and test A
 
   * **Table**: Lists debt items with file, type, and priority.
   * **Pie Chart**: Summarizes debt by type.
-* **Hooks**: `useTechnicalDebts` handles API fetching and state management.
-* **Authentication**: Login page stores JWT token in local storage and redirects to dashboard.
+* **Hooks**: Utilizes React Query (`useTechnicalDebts`) for efficient data fetching, caching, and state management of debt items.
+* **Authentication**: The Login page integrates with Laravel Sanctum to handle token authentication, ensuring secure cross-system API communication.
 
 ---
 
