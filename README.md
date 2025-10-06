@@ -123,45 +123,64 @@ This allows you to explore endpoints, view request/response examples, and test A
 
 ---
 
-## Engineering Management Process
+Com certeza! Abaixo está a versão em inglês das melhorias propostas para a seção de Engenharia e Gestão de Equipe.
 
-### 1. **Regular Debt Review**
-
-* **Frequency & Responsibility**:
-  * Weekly meetings dedicated to technical debt review.
-  * Each team member is responsible for reviewing and addressing their assigned debt items.
-
-* **Review Process**:
-  * The team reviews the previous week’s items and identifies new debts automatically detected by the **TechnicalDebtService**.
-  * Each item is classified by type and priority (High, Medium, Low).
-  * Decisions regarding refactoring or mitigation are documented.
-
-* **Supporting Tools**:
-  * React Dashboard for real-time visualization of debt status.
-  * Ticketing system or issue tracker to manage resolution of each debt item.
+O texto foca em **Accountability (Responsabilidade)**, **Métricas Quantificáveis (KPIs)** e o **Framework de Comunicação para *Founders* (Non-Technical Stakeholders)**, conforme solicitado.
 
 ---
 
-### 2. **Measurable Reduction Goals**
+# Engineering Management and Accountability
 
-* **Goal Definition**:
-  * Monthly targets for reducing high-priority items (e.g., reduce 20% of High priority items).
-  * Quarterly targets for reducing medium and low priority debt, maintaining overall code health.
+## 1. Sustainable Technical Debt Management Process
 
-* **Monitoring**:
-  * Metrics collected by **TechnicalDebtService** feed the real-time dashboard.
-  * Metrics include:
-    * Total technical debt items
-    * Distribution by type (e.g., Missing Tests, Code Duplication)
-    * Progress toward reduction goals
+We establish clear processes to ensure technical quality is a **continuous effort** and not a reactive task, balancing feature delivery with quality maintenance.
 
-* **Accountability**:
-  * Each developer or squad has clear responsibilities for addressing debt.
-  * Automated reports can be generated for sprint reviews or team retrospectives.
+| Process Step | Details and Frequency | Accountability Measures |
+| :--- | :--- | :--- |
+| **Weekly Debt Review** | Dedicated 30-minute meeting to review high-priority items identified by the `TechnicalDebtService`. **Frequency:** Weekly, led by a rotating engineer. | Decisions on refactoring or mitigation are **documented and assigned** as tickets in the sprint backlog. |
+| **Time-Box Allocation** | A **fixed time-box of 15%** of the engineering capacity in every sprint is dedicated to addressing technical debt. | This guarantees that quality maintenance is built into the workflow, preventing debt accumulation and aligning with **sustainable development**. |
+| **Debt Prioritization** | Debt items are classified based on **Impact x Likelihood** and tagged in the ticketing system (High: System Crash Risk; Medium: Maintainability Blocker; Low: Code Style/Cleanup). | Ensures team effort is focused on the debt that poses the highest business risk. |
 
 ---
 
-### 3. **Cross-System QA Oversight**
+## 2. Team Accountability and Quantifiable Success Metrics
+
+We define success not only by reducing debt but by establishing a measurable framework for continuous quality improvement.
+
+### A. Quantifiable Key Performance Indicators (KPIs)
+
+Success for the Technical Debt Framework is measured via the following **quantifiable KPIs**:
+
+| KPI | Target | Measurement |
+| :--- | :--- | :--- |
+| **High-Priority Debt Reduction Rate** | **$\geq 20\%$** reduction month-over-month (MoM). | Tracks the team’s ability to proactively eliminate critical codebase risks. |
+| **Technical Debt Health Score Stability** | Score must be maintained at **$\geq 85/100$** across all major releases. | A simplified, holistic metric for overall system health (see Communication below). |
+| **Accountability & Ownership** | Debt items assigned must be resolved at a rate of **$\geq 90\%$** per engineer by the end of the sprint. | Ensures equitable distribution of quality work and individual ownership. |
+
+### B. Individual and Team Accountability
+
+* **Goal Setting:** The team's monthly goal (e.g., $20\%$ reduction) is broken down into **individual OKRs or weekly assignments**.
+* **Performance Review:** Automated reports track the **volume of debt assigned vs. debt resolved per engineer**, enabling data-driven discussions during 1:1s and sprint retrospectives.
+
+---
+
+## 3. Clear Framework for Non-Technical Founder Updates (Bonus)
+
+To bridge the gap between technical complexity and business strategy, we use a single, simplified metric for our non-technical stakeholders.
+
+### The "Debt Health Score" (DHS)
+
+Instead of overwhelming founders with bug counts or code complexity metrics, we consolidate all technical debt into a **single, easy-to-understand score (0 to 100)**.
+
+* **Purpose:** The score provides a clear, objective input for **roadmap prioritization** and budgeting discussions regarding technical maintenance.
+* **Calculation (Weighted Average):** The score is derived by heavily **weighting High-Priority items** over others.
+    
+    DHS = 100 - (Weight_High * Count_High) - (Weight_Medium * Count_Medium) - ...
+  
+    *(Example: High items count as 10x impact, Medium as 5x, Low as 1x.)*
+* **Communication:** Engineering provides a **bi-weekly status update** only on the **current DHS and the trend (up/down)**, allowing founders to quickly assess the long-term sustainability of the product.
+  
+### 4. **Cross-System QA Oversight**
 
 * **Debt Classification Standardization**:
   * The same set of rules is applied across backend (Laravel) and frontend (React).
@@ -346,7 +365,7 @@ frontend/
 
 * Add filtering and sorting options in dashboard.
 * Add automated CI/CD checks to fail builds on new high-priority debt.
-* Integrate with **Bubble.io** for higher-level reporting and management dashboards.
+* This implementation is ready to integrate with **Bubble.io** for higher-level reporting and management dashboards.
 * Expand technical debt detection to additional categories like performance issues, security gaps, and code complexity.
 
 
