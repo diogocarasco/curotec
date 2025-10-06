@@ -32,6 +32,85 @@
   ]
   ```
 
+## API Documentation
+
+The Technical Debt Manager backend exposes the following endpoints. The API is documented using **OpenAPI/Swagger**.
+
+### Authentication
+
+**POST /api/login**
+
+Authenticate a user and return a JWT token.
+
+**Request Body:**
+
+```json
+{
+  "email": "user@example.com",
+  "password": "secret"
+}
+````
+
+**Responses:**
+
+* **200 OK**
+
+```json
+{
+  "token": "your-jwt-token"
+}
+```
+
+* **401 Unauthorized**
+
+```json
+{
+  "error": "Invalid credentials"
+}
+```
+
+### Technical Debts
+
+**GET /api/technical-debts**
+
+Retrieve a list of technical debts in the codebase.
+
+**Response:**
+
+* **200 OK**
+
+```json
+[
+  {
+    "file": "app/Console/Kernel.php",
+    "type": "MissingTest",
+    "priority": "High"
+  },
+  {
+    "file": "app/Exceptions/Handler.php",
+    "type": "MissingTest",
+    "priority": "High"
+  }
+  // ... other items
+]
+```
+
+**Notes:**
+
+* `file` — Path to the file with technical debt.
+* `type` — Category of the technical debt (e.g., MissingTest, DeprecatedCode).
+* `priority` — Debt prioritization (High, Medium, Low).
+
+### Swagger/OpenAPI
+
+The API is fully documented using OpenAPI annotations. You can view the interactive documentation at:
+
+```
+http://localhost:8000/api/documentation
+```
+
+This allows you to explore endpoints, view request/response examples, and test API calls directly from the browser.
+
 ### Frontend (React + Vite)
 
 * **Dashboard Component**:
